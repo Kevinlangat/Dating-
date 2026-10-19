@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Elite Connections · Exclusive Dating</title>
+  <!-- Font Awesome 6 (free) for clean icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ----- RESET & GLOBAL ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f7f5f2;  /* warm off-white */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #2e2b28;
+      line-height: 1.5;
+    }
+
+    /* subtle luxury pattern */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path d="M40 0 L80 40 L40 80 L0 40 Z" fill="none" stroke="%23d4c5b2" stroke-width="0.4" opacity="0.2"/></svg>');
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ----- HEADER ----- */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200, 180, 160, 0.3);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo i {
+      font-size: 2rem;
+      color: #b8a28b;
+      background: #2e2b28;
+      border-radius: 50%;
+      padding: 0.5rem;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    }
+
+    .logo span {
+      font-size: 1.6rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #2e2b28;
+    }
+
+    .logo small {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #7a6a5a;
+      display: block;
+      letter-spacing: 0.1em;
+    }
+
+    .badge {
+      background: #e8e0d6;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #4a3f35;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid #d6cbbc;
+      white-space: nowrap;
+    }
+
+    .badge i {
+      color: #b8977a;
+    }
+
+    /* ----- MAIN CARD / HERO ----- */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .payment-card {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 36px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(200, 180, 150, 0.2) inset;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    /* left info column */
+    .info-panel {
+      flex: 1.1;
+      padding: 2.5rem 2.2rem;
+      background: #fbf9f6;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid #ece3d9;
+    }
+
+    .info-panel h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: #1e1b18;
+      margin-bottom: 1.25rem;
+    }
+
+    .info-panel h1 i {
+      color: #b8977a;
+      font-size: 2rem;
+      margin-right: 0.2rem;
+    }
+
+    .highlight {
+      font-weight: 600;
+      color: #9b7b5c;
+      border-bottom: 2px solid #dccfc1;
+      display: inline-block;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #5b4e42;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      border-left: 4px solid #dccfc1;
+      padding-left: 1.25rem;
+      background: #f5efe9;
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.25rem;
+    }
+
+    .features-list {
+      list-style: none;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #3b332c;
+    }
+
+    .features-list i {
+      width: 24px;
+      color: #b8977a;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .trust-note {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: #7a6a5a;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed #d9cdc0;
+    }
+
+    .trust-note i {
+      font-size: 1.3rem;
+      color: #b8977a;
+    }
+
+    /* right payment column */
+    .payment-panel {
+      flex: 1;
+      padding: 2.5rem 2.2rem;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .payment-panel h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #1e1b18;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .payment-panel h2 i {
+      color: #b8977a;
+      font-size: 1.5rem;
+    }
+
+    .price-tag {
+      font-size: 3rem;
+      font-weight: 600;
+      color: #1e1b18;
+      line-height: 1;
+      margin: 0.5rem 0 0.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .price-tag small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #8b7b6b;
+      letter-spacing: 0;
+      margin-left: 0.4rem;
+    }
+
+    .vat-info {
+      font-size: 0.85rem;
+      color: #a18d7a;
+      margin-bottom: 2rem;
+    }
+
+    .payment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #5f5144;
+    }
+
+    .card-input {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ded3c7;
+      border-radius: 16px;
+      padding: 0.8rem 1.2rem;
+      background: #fefcf9;
+      transition: 0.15s;
+    }
+
+    .card-input i {
+      color: #b8a28b;
+      font-size: 1.2rem;
+      margin-right: 0.75rem;
+    }
+
+    .card-input input {
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      color: #2e2b28;
+      letter-spacing: 0.02em;
+    }
+
+    .card-input input::placeholder {
+      color: #bcb0a4;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    .card-input:focus-within {
+      border-color: #b8977a;
+      box-shadow: 0 0 0 3px rgba(184, 151, 122, 0.1);
+      background: #ffffff;
+    }
+
+    .row-2 {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .row-2 .input-group {
+      flex: 1;
+    }
+
+    .pay-button {
+      background: #2e2b28;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 1.2rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 0.75rem;
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.3);
+    }
+
+    .pay-button i {
+      font-size: 1.1rem;
+    }
+
+    .pay-button:hover {
+      background: #1e1b18;
+      transform: scale(1.01);
+      box-shadow: 0 16px 28px -12px rgba(0, 0, 0, 0.4);
+    }
+
+    .pay-button:active {
+      transform: scale(0.99);
+    }
+
+    .secure-note {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: #9b8d7e;
+      margin-top: 1rem;
+    }
+
+    .secure-note i {
+      font-size: 0.9rem;
+    }
+
+    /* ----- GATED CONTENT (hidden by default) ----- */
+    .gated-content {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #ffffff;
+      border-radius: 36px;
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+    }
+
+    .gated-content i.big-icon {
+      font-size: 4rem;
+      color: #b8977a;
+      background: #f3ede7;
+      padding: 1.5rem;
+      border-radius: 60px;
+      margin-bottom: 1.5rem;
+    }
+
+    .gated-content h2 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #1e1b18;
+      margin-bottom: 1rem;
+    }
+
+    .gated-content p {
+      color: #6b5e51;
+      max-width: 450px;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .back-link {
+      background: #f0e9e1;
+      border: 1px solid #d9cdc0;
+      border-radius: 40px;
+      padding: 0.8rem 2rem;
+      color: #3b332c;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+    }
+
+    .back-link:hover {
+      background: #e6ddd2;
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.8rem;
+      color: #a19486;
+      border-top: 1px solid rgba(200, 180, 160, 0.3);
+      margin-top: 2rem;
+    }
+
+    .footer i {
+      margin: 0 0.25rem;
+      color: #b8a28b;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 900px) {
+      .payment-card {
+        flex-direction: column;
+        border-radius: 28px;
+      }
+
+      .info-panel {
+        border-right: none;
+        border-bottom: 1px solid #ece3d9;
+        padding: 2rem 1.8rem;
+      }
+
+      .payment-panel {
+        padding: 2rem 1.8rem;
+      }
+
+      .info-panel h1 {
+        font-size: 2rem;
+      }
+
+      .price-tag {
+        font-size: 2.6rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 1rem 1.2rem;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .logo {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .logo i {
+        font-size: 1.8rem;
+      }
+
+      .logo span {
+        font-size: 1.4rem;
+      }
+
+      .badge {
+        display: none;
+      }
+
+      .main-content {
+        padding: 1.25rem 1rem;
+      }
+
+      .payment-card {
+        border-radius: 24px;
+      }
+
+      .info-panel, .payment-panel {
+        padding: 1.8rem 1.4rem;
+      }
+
+      .info-panel h1 {
+        font-size: 1.8rem;
+      }
+
+      .subhead {
+        font-size: 1rem;
+        padding: 0.9rem 1rem;
+      }
+
+      .row-2 {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .pay-button {
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+      }
+
+      .price-tag {
+        font-size: 2.4rem;
+      }
+
+      .gated-content h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .logo span {
+        font-size: 1.2rem;
+      }
+      .info-panel h1 {
+        font-size: 1.5rem;
+      }
+      .features-list li {
+        font-size: 0.9rem;
+        gap: 0.75rem;
+      }
+    }
+
+    /* fine for old rich white men aesthetic: serif accents, warm tones */
+    .serif-accent {
+      font-family: 'Georgia', 'Times New Roman', serif;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <i class="fas fa-crown"></i>
+      <div>
+        <span>Elite Connections</span>
+        <small>EST. 1998 · PRIVATE CLUB</small>
+      </div>
+    </div>
+    <div class="badge">
+      <i class="fas fa-lock"></i> Members only · 1,200+ verified
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT (payment gate + hidden content) -->
+  <main class="main-content" id="mainContent">
+    <!-- PAYMENT CARD (visible by default) -->
+    <div class="payment-card" id="paymentCard">
+      <!-- left: value prop -->
+      <div class="info-panel">
+        <h1>
+          <i class="fas fa-gem"></i><br>
+          For the <span class="highlight">distinguished</span> gentleman
+        </h1>
+        <div class="subhead">
+          Where legacy meets elegance. Exclusive introductions to sophisticated companions who appreciate the finer things.
+        </div>
+        <ul class="features-list">
+          <li><i class="fas fa-check-circle"></i> Private, discreet matching</li>
+          <li><i class="fas fa-check-circle"></i> Verified, high‑caliber members</li>
+          <li><i class="fas fa-check-circle"></i> Personal concierge service</li>
+          <li><i class="fas fa-check-circle"></i> Global access · 40+ cities</li>
+        </ul>
+        <div class="trust-note">
+          <i class="fas fa-shield-alt"></i>
+          <span>Discretion guaranteed. Your privacy is our priority.</span>
+        </div>
+      </div>
+
+      <!-- right: payment form -->
+      <div class="payment-panel">
+        <h2><i class="fas fa-key"></i> Unlock access</h2>
+        <div class="price-tag">$99<small>/month</small></div>
+        <div class="vat-info">One‑time verification fee · cancel anytime</div>
+
+        <form class="payment-form" id="paymentForm">
+          <div class="input-group">
+            <label>Card number</label>
+            <div class="card-input">
+              <i class="fas fa-credit-card"></i>
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" inputmode="numeric" autocomplete="cc-number" required>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="input-group">
+              <label>Expiry</label>
+              <div class="card-input">
+                <i class="fas fa-calendar-alt"></i>
+                <input type="text" id="expiry" placeholder="MM / YY" inputmode="numeric" required>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>CVC</label>
+              <div class="card-input">
+                <i class="fas fa-lock"></i>
+                <input type="text" id="cvc" placeholder="123" inputmode="numeric" required>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="pay-button" id="payButton">
+            <i class="fas fa-lock"></i> Pay & enter
+          </button>
+          <div class="secure-note">
+            <i class="fas fa-shield"></i> 256‑bit SSL · PCI compliant
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- GATED CONTENT (shown after payment) -->
+    <div class="gated-content" id="gatedContent">
+      <i class="fas fa-check-circle big-icon"></i>
+      <h2>Welcome, gentleman.</h2>
+      <p>Your access has been granted. You may now explore our curated circle of companions.</p>
+      <button class="back-link" id="backToPayment">
+        <i class="fas fa-arrow-left"></i> Back to payment
+      </button>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <i class="fas fa-crown"></i> Elite Connections · Private Membership · <i class="fas fa-lock"></i> Discreet billing
+  </footer>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const paymentCard = document.getElementById('paymentCard');
+    const gatedContent = document.getElementById('gatedContent');
+    const paymentForm = document.getElementById('paymentForm');
+    const backToPaymentBtn = document.getElementById('backToPayment');
+
+    // Simple validation & payment simulation
+    paymentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get inputs
+      const cardNumber = document.getElementById('cardNumber').value.trim();
+      const expiry = document.getElementById('expiry').value.trim();
+      const cvc = document.getElementById('cvc').value.trim();
+
+      // Basic client-side validation (non-empty). 
+      // (real payment processing would happen server-side)
+      if (!cardNumber || !expiry || !cvc) {
+        alert('Please fill in all payment fields.');
+        return;
+      }
+
+      // Optional: simple pattern check for visual feedback
+      const digitsOnly = cardNumber.replace(/\s/g, '');
+      if (digitsOnly.length < 12 || isNaN(digitsOnly)) {
+        alert('Please enter a valid card number (at least 12 digits).');
+        return;
+      }
+
+      // Simulate a short processing state
+      const payBtn = document.getElementById('payButton');
+      const originalText = payBtn.innerHTML;
+      payBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processing...';
+      payBtn.disabled = true;
+
+      // After a brief delay, "approve" payment and show gated content
+      setTimeout(() => {
+        // Hide payment card, show gated content
+        paymentCard.style.display = 'none';
+        gatedContent.style.display = 'flex';
+
+        // Reset button state (in case user goes back)
+        payBtn.innerHTML = originalText;
+        payBtn.disabled = false;
+
+        // Optionally clear form (for security / fresh look if they return)
+        paymentForm.reset();
+      }, 900);
+    });
+
+    // Back button: show payment form again, hide gated content
+    backToPaymentBtn.addEventListener('click', function() {
+      gatedContent.style.display = 'none';
+      paymentCard.style.display = 'flex';
+    });
+
+    // (optional) format card number lightly — helps UX
+    const cardInput = document.getElementById('cardNumber');
+    cardInput.addEventListener('input', function(e) {
+      let value = this.value.replace(/\s/g, '');
+      if (value.length > 0) {
+        // limit length
+        value = value.slice(0, 16);
+        // add space every 4 digits
+        let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+        this.value = formatted;
+      }
+    });
+
+    // expiry formatting MM / YY
+    const expiryInput = document.getElementById('expiry');
+    expiryInput.addEventListener('input', function(e) {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length > 0) {
+        if (value.length <= 2) {
+          this.value = value;
+        } else {
+          this.value = value.slice(0, 2) + ' / ' + value.slice(2, 4);
+        }
+      }
+    });
+
+    // cvc numeric only max 4 chars
+    const cvcInput = document.getElementById('cvc');
+    cvcInput.addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '').slice(0, 4);
+    });
+
+  })();
+</script>
+</body>
+</html>
